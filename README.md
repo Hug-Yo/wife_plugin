@@ -69,7 +69,9 @@ target = 0  #黑幕（bushi）
 本插件模仿了“花花”的抽老婆功能。
 
 花花：
+
 <img src="./images/鸣谢花花.png" alt="示例" width="305" height="615">
+
 ~~给Hug高兴坏了.jpg~~
 
 ## 目前可能存在的问题
