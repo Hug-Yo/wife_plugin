@@ -10,5 +10,8 @@
   "host_application": {
     "min_version": "0.11.3"
   },
-  "homepage_url":
+  "homepage_url":"https://github.com/Hug-Yo/wife_plugin",
+  "repository_url": "https://github.com/Hug-Yo/wife_plugin",
+  "keywords": ["娱乐", "抽奖", "群老婆", "抽老婆"],
+  "categories": ["娱乐工具","娱乐","抽奖工具"]
 }
