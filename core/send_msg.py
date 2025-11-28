@@ -55,7 +55,7 @@ async def send_today_wife(port: int , user_id: str|int , wife_info: MemberInfo) 
                 "type": "text",
                 "data":
                     {
-                        "text": f"\n{wife_info.nickname}({wife_info.user_id})"
+                        "text": f"{wife_info.nickname}({wife_info.user_id})"
                     }
             }
         ]
@@ -97,7 +97,7 @@ async def send_already_obtained_wife(port: int , user_id : int|str , data: Membe
                 "type": "image",
                 "data":
                     {
-                        "file": f"https://q1.qlogo.cn/g?b=qq&nk={data.user_id}&s=100",
+                        "file": f"https://q1.qlogo.cn/g?b=qq&nk={data.user_id}&s=640",
                         "summary": "[图片]"
                     }
             },
@@ -105,7 +105,7 @@ async def send_already_obtained_wife(port: int , user_id : int|str , data: Membe
                 "type": "text",
                 "data":
                     {
-                        "text": f"\n{data.nickname}({data.user_id})"
+                        "text": f"{data.nickname}({data.user_id})"
                     }
             }
         ]
