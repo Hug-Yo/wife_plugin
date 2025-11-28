@@ -1,0 +1,14 @@
+{
+  "manifest_version": 1,
+  "name": "抽群老婆插件",
+  "version": "1.0.0",
+  "description": "可以在群聊中选择一位幸运群u做群老婆~",
+  "author": {
+    "name": "Hug_Yo"
+  },
+  "license":"MIT",
+  "host_application": {
+    "min_version": "0.11.3"
+  },
+  "homepage_url":
+}
