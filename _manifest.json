@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "description": "可以在群聊中选择一位幸运群u做群老婆~",
   "author": {
-    "name": "Hug_Yo"
+    "name": "Hug_Yo",
+    "url": "https://github.com/Hug-Yo"
   },
   "license":"MIT",
   "host_application": {
