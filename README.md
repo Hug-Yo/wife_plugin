@@ -13,7 +13,8 @@
 `host`字段填`0.0.0.0`，启用CORS和Websocket，名称自定义即可
 
 示例：
-<img src="./images/napcat.png" alt="示例" width="auto" height="auto">
+
+<img src="./images/napcat.png" alt="示例" width="338" height="428">
 
 ## 配置文件详解
 ```toml
@@ -50,15 +51,15 @@ target = 0  #黑幕（bushi）
 ## 使用示例
 - 抽老婆：
 
-<img src="./images/抽老婆.png" alt="示例" width="auto" height="auto">
+<img src="./images/抽老婆.png" alt="示例" width="305" height="383">
 
 - 今日内已抽过群老婆：
 
-<img src="./images/今日内已抽过群老婆.png" alt="示例" width="auto" height="auto">
+<img src="./images/今日内已抽过群老婆.png" alt="示例" width="305" height="402">
 
 - 抽到了麦麦：
 
-<img src="./images/抽到了麦麦.png" alt="示例" width="auto" height="auto">
+<img src="./images/抽到了麦麦.png" alt="示例" width="305" height="392">
 
 ## 黑幕（确信）
 将config.toml文件下的target字段修改为某用户的qq号，那这个用户每天抽到的老婆就必定是麦麦~
@@ -68,7 +69,7 @@ target = 0  #黑幕（bushi）
 本插件模仿了“花花”的抽老婆功能。
 
 花花：
-<img src="./images/鸣谢花花.png" alt="示例" width="auto" height="auto">
+<img src="./images/鸣谢花花.png" alt="示例" width="305" height="615">
 ~~给Hug高兴坏了.jpg~~
 
 ## 目前可能存在的问题
