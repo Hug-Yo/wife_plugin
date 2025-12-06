@@ -95,6 +95,14 @@ class WifeCommand(BaseCommand):
                 error_message = wife_info
                 logger.error(error_message)
                 return False, error_message, True
+            # 判断抽到的群老婆是不是麦麦
+            if str(wife_id) == str(bot_id):
+                flag, res = await send_bot_selected(bot_id, port, user_id, group_id)
+                if not flag:
+                    error_message = wife_info
+                    logger.error(error_message)
+                    return False, error_message, True
+                return True, "执行成功", True
             #发送已抽取的群老婆信息
             flag , res = await send_already_obtained_wife(port , user_id, wife_info)
             if not flag:
