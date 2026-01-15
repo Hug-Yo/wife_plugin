@@ -19,30 +19,33 @@
 ## 配置文件详解
 ```toml
 # wife_plugin - 自动生成的配置文件
-# 可以在群聊中选择一位幸运群u做群老婆
+# 可以在群聊中选择一位幸运群u做群老婆~
 
 [plugin]
 
 # 插件名称
 name = "wife_plugin"
 
-# 插件版本
-version = "1.0.0"
-
 # 是否启用插件
 enabled = true
+
+# 配置文件版本
+config_version = "1.0.1"
 
 
 [napcat]
 
 # napcat端口
-port = 6666  #可视情况修改，与napcat端的设置保持一致即可
+port = 6666
+
+# token,建议设置以增强安全性
+napcat_token = ""
 
 
 [other]
 
 # 神秘开关，改成某个qq号可以让此用户始终抽到麦麦
-target = 0  #黑幕（bushi）
+target = [0]
 
 ```
 ## 使用方法
@@ -79,4 +82,5 @@ target = 0  #黑幕（bushi）
 1. 为了保证每个人每天只能抽一次老婆，抽老婆之后会将群老婆数据保存到`data`目录下，但目前尚未做过期文件清理
 2. 没有对请求速率做限制，请使用时避免大范围刷屏
 
-以上问题作者将尽快解决
+# change_log
+1.0.1:配置文件新增napcat_token

@@ -51,11 +51,12 @@ class MemberInfo:
         self.role = data.get("role")
         self.title = data.get("title")
 
-async def get_group_user_list(port: int,group_id: Union[str,int]) -> Tuple[bool, Union[list, str]]:
+async def get_group_user_list(port: int,group_id: Union[str,int],napcat_token:str) -> Tuple[bool, Union[list, str]]:
     """
     Args:
         port: napcat设置的端口
         group_id:目标群组id
+        napcat_token:http服务器token
     Returns:
         bool:是否执行成功
         list | str :成功时返回包含群成员信息的列表，失败返回错误信息
@@ -66,6 +67,8 @@ async def get_group_user_list(port: int,group_id: Union[str,int]) -> Tuple[bool,
     headers = {
         'Content-Type': 'application/json'
     }
+    if napcat_token:
+        headers["Authorization"] = f"Bearer {napcat_token}"
     payload = json.dumps({
         "group_id": group_id,
         "no_cache": False
@@ -81,7 +84,7 @@ async def get_group_user_list(port: int,group_id: Union[str,int]) -> Tuple[bool,
         # logger.error(f"成员列表请求发生错误{str(e)}")
         return False , f"成员列表请求发生错误{str(e)}"
 
-async def get_member_info(port: int ,group_id : str|int , user_id: str|int) -> Tuple[bool, Union[MemberInfo, str]]:
+async def get_member_info(port: int ,group_id : str|int , user_id: str|int , napcat_token:str) -> Tuple[bool, Union[MemberInfo, str]]:
     url = "get_group_member_info"
     base_napcat_url = f"http://127.0.0.1:{port}/{url}"
     payload = json.dumps({
@@ -92,6 +95,8 @@ async def get_member_info(port: int ,group_id : str|int , user_id: str|int) -> T
     headers = {
         'Content-Type': 'application/json'
     }
+    if napcat_token:
+        headers["Authorization"] = f"Bearer {napcat_token}"
     try:
         async with aiohttp.ClientSession() as session:
             async with session.request("POST", base_napcat_url, headers=headers, data=payload) as response:

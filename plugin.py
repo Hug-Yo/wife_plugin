@@ -40,6 +40,7 @@ class WifeCommand(BaseCommand):
         bot_id = global_config.bot.qq_account
         port = self.get_config("napcat.port")
         target = self.get_config("other.target")
+        napcat_token = self.get_config("napcat.napcat_token")
         #获取聊天流信息
         chat_stream = self.message.chat_stream
         stream_type = chat_api.get_stream_type(chat_stream)
@@ -63,16 +64,16 @@ class WifeCommand(BaseCommand):
                 json.dump({}, f, ensure_ascii=False, indent=4)
         with open(json_file, "r", encoding="utf-8") as f:
             data = json.load(f)
-        #判断target是否为默认值
-        if target != 0 and target == int(user_id):
-            flag , res = await send_bot_selected(bot_id , port , user_id , group_id)
+        #判断用户是否在target列表内
+        if int(user_id) in target:
+            flag , res = await send_bot_selected(bot_id , port , user_id , group_id , napcat_token)
             if not flag:
                 error_message = res
                 logger.error(error_message)
                 return False , error_message , True
             return True , "执行成功" , True
         # 获取成员列表
-        flag, group_member_list = await get_group_user_list(port ,group_id)
+        flag, group_member_list = await get_group_user_list(port ,group_id, napcat_token)
         if not flag:
             error_message = group_member_list
             logger.error(error_message)
@@ -90,21 +91,21 @@ class WifeCommand(BaseCommand):
         if not data.get(f"{user_id}") is None:
             wife_id = data.get(f"{user_id}")
             #获取已抽到的群老婆信息
-            flag , wife_info = await get_member_info(port ,group_id, wife_id)
+            flag , wife_info = await get_member_info(port ,group_id, wife_id ,napcat_token)
             if not flag:
                 error_message = wife_info
                 logger.error(error_message)
                 return False, error_message, True
-            # 判断抽到的群老婆是不是麦麦
+            #判断抽到的群老婆是不是麦麦
             if str(wife_id) == str(bot_id):
-                flag, res = await send_bot_selected(bot_id, port, user_id, group_id)
+                flag , res = await send_bot_selected(bot_id , port , user_id , group_id , napcat_token)
                 if not flag:
                     error_message = wife_info
                     logger.error(error_message)
                     return False, error_message, True
-                return True, "执行成功", True
+                return True , "执行成功" , True
             #发送已抽取的群老婆信息
-            flag , res = await send_already_obtained_wife(port , user_id, wife_info)
+            flag , res = await send_already_obtained_wife(port , user_id, wife_info , napcat_token)
             if not flag:
                 error_message = res
                 logger.error(error_message)
@@ -112,7 +113,7 @@ class WifeCommand(BaseCommand):
             return True , "执行成功" , True
         #检测抽到的是麦麦自己，并发送抽老婆结果
         if str(wife_info.user_id) == str(bot_id):
-            flag , res = await send_bot_selected(bot_id, port, user_id, group_id)
+            flag , res = await send_bot_selected(bot_id, port, user_id, group_id , napcat_token)
             if not flag:
                 error_message = res
                 logger.error(error_message)
@@ -123,7 +124,7 @@ class WifeCommand(BaseCommand):
                 json.dump(data, f, ensure_ascii=False, indent=4)
                 return True, "执行成功", True
         #抽到的不是麦麦，直接发送抽老婆结果
-        flag , res = await send_today_wife(port , user_id,wife_info)
+        flag , res = await send_today_wife(port , user_id , wife_info , napcat_token)
         if not flag:
             error_message = res
             logger.error(error_message)
@@ -145,14 +146,15 @@ class WifePlugin(BasePlugin):
     config_schema = {
         "plugin": {
             "name": ConfigField(type = str , default = "wife_plugin" , description = "插件名称"),
-            "version": ConfigField(type = str , default = "1.0.0" , description = "插件版本"),
-            "enabled": ConfigField(type = bool , default = True , description = "是否启用插件")
+            "enabled": ConfigField(type = bool , default = True , description = "是否启用插件"),
+            "config_version": ConfigField(type= str,default="1.0.1",description="配置文件版本")
         },
         "napcat":{
-            "port": ConfigField(type = int , default = 6666 , description = "napcat端口")
+            "port": ConfigField(type = int , default = 6666 , description = "napcat端口"),
+            "napcat_token": ConfigField(type=str , default='',description="token,建议设置以增强安全性")
         },
         "other":{
-            "target": ConfigField(type = int , default= 0 , description = "神秘开关，改成某个qq号可以让此用户始终抽到麦麦")
+            "target": ConfigField(type = list , default= [0] , description = "神秘开关，改成某个qq号可以让此用户始终抽到麦麦")
         }
     }
     def get_plugin_components(self) -> List[Tuple[ComponentInfo, Type]]:
